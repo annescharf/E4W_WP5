@@ -8,6 +8,15 @@
 #### downloading rasters from NASA earth data ####
 ##################################################
 
+## downloading monthly 1km ndvi:
+## MOD13A3 v061 - MODIS/Terra Vegetation Indices Monthly L3 Global 1 km SIN Grid
+
+## monthly product is calculated with a weighted temporal average of the 16day product: "In generating this monthly product, the algorithm ingests all the MOD13A2 products that overlap the month and employs a weighted temporal average."
+## so layer of 2025-05-01 is the result of all layers collected in May 2025.
+
+## download of global data had to be done in chucks, ie quarter globe tiles and than stitched together (second part of this script)
+
+
 library(appeears)
 ## vignette: https://cran.r-project.org/web/packages/appeears/vignettes/appeears_vignette.html
 
@@ -60,7 +69,7 @@ yrs <- 2000:2025
 startT <- paste0(yrs,"-01-01")
 startT[startT=="2000-01-01"] <- "2000-02-01" ## terra modis ndvi data starts here
 endT <- paste0(yrs,"-12-31")
-endT[endT=="2025-12-31"] <- "2025-05-31" ## Today is June 9th
+endT[endT=="2025-12-31"] <- "2025-05-31" ## One can also use "today" as the end date, but this way it is clearer till when the data go. Today is 9th June, and the last available layer is from 1st may.
 myproduct <- "MOD13A3.061"
 mylayers <- c("_1_km_monthly_NDVI", "_1_km_monthly_pixel_reliability")
 
